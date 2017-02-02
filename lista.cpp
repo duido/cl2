@@ -1,6 +1,7 @@
 /*
+	Gestione di una lista
 	Simulare la gestione di una coda di utenti, in fila
- 	allo sportello.
+ 	allo sportello. (LIFO)
  	 
 
  */ 
