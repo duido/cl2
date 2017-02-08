@@ -2,9 +2,9 @@
 	Gestione di una lista
 	Simulare la gestione di una coda di utenti, in fila
  	allo sportello. (LIFO)
- 	 
 
- */ 
+
+ */
 #include <iostream>
 
 using namespace std;
@@ -23,17 +23,19 @@ persona *aggiungiInCoda(persona *lista);
 persona *setPersona();
 int menu();
 persona *eliminaInTesta(persona *l);
+persona *aggiungiInTesta(persona *p);
 
 // inizio programma
 int main()
 {
 	persona *lista = NULL;
 	int scelta;
-	
+
 	do{
 		scelta = menu();
 		switch(scelta){
 			case 1:
+				lista = aggiungiInTesta(lista);
 				break;
 			case 2:
 				lista = aggiungiInCoda(lista);
@@ -51,14 +53,15 @@ int main()
 		}
 
 	}while(scelta != ESCI);
-	
-	
-	
+
+
+
 	return 0;
 }
 
 // visualizza gli elementi della coda
-void stampa(persona *l){
+void stampa(persona *l)
+{
 	cout << endl;
 	if(!l)
 		cout << "Lista vuota!" << endl;
@@ -70,7 +73,8 @@ void stampa(persona *l){
 	cout << endl;
 }
 
-persona *setPersona(){
+persona *setPersona()
+{
 	persona *p = new persona();
 	cout << "Nome: ";cin >> p->nome;
 	cout << "Eta': ";cin >> p->eta;
@@ -80,8 +84,9 @@ persona *setPersona(){
 }
 
 // aggiunge in coda un nuovo elemento
-persona *aggiungiInCoda(persona *lista){
-	// salvo l'indirizzo della testa della coda	
+persona *aggiungiInCoda(persona *lista)
+{
+	// salvo l'indirizzo della testa della coda
 	persona *l = lista;
 	// creazione nuova persona
 	persona *p = setPersona();
@@ -91,13 +96,14 @@ persona *aggiungiInCoda(persona *lista){
 	else {
 		while(l->next) // scorro la coda
 			l = l->next;
-		l->next = p;  // aggiungo l'elemento in coda 
+		l->next = p;  // aggiungo l'elemento in coda
 	}
 	// restituisco sempre la testa della coda
 	return lista;
 }
 
-int menu(){
+int menu()
+{
 	int scelta;
 	cout << "1. Aggiungi in testa\n";
 	cout << "2. Aggiungi in coda\n";
@@ -110,11 +116,19 @@ int menu(){
 	return scelta;
 }
 
-persona *eliminaInTesta(persona *l){
+persona *eliminaInTesta(persona *l)
+{
 	if(l){
 		persona *p = l;
-		l = l->next; 
+		l = l->next;
 		delete(p);
 	}
 	return l;
+}
+
+persona *aggiungiInTesta(persona *l)
+{
+	persona *p = setPersona();
+	p->next = l;
+	return p;		
 }
