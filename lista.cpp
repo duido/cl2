@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define ESCI 6
+#define ESCI 7
 
 struct persona{
 	string nome;
@@ -25,11 +25,14 @@ persona *setPersona();
 int menu();
 persona *eliminaInTesta(persona *l);
 persona *aggiungiInTesta(persona *p);
+persona *cercaPersona(persona *l, string n);
 
 // inizio programma
 int main()
 {
 	persona *lista = NULL;
+	persona *p;
+	string s;
 	int scelta;
 
 	do{
@@ -48,6 +51,14 @@ int main()
 				lista = eliminaInCoda(lista);
 				break;
 			case 5:
+				cout << "\nNome da cercare: ";cin >> s;
+				p = cercaPersona(lista, s);
+				if(p)
+					cout << "\nRicerca positiva, " << p->nome << " esistente in archivio.\n\n";
+				else
+					cout << "\nRicerca negativa, elemento non presente.\n\n";	
+				break;	
+			case 6:
 				stampa(lista);
 				break;
 			default:
@@ -68,8 +79,9 @@ int menu()
 	cout << "2. Aggiungi in coda\n";
 	cout << "3. Elimina in testa\n";
 	cout << "4. Elimina in coda\n";
-	cout << "5. Visualizza\n";
-	cout << "6. Esci\n\n";
+	cout << "5. Cerca un elemento\n";
+	cout << "6. Visualizza\n";
+	cout << "7. Esci\n\n";
 	cout << "Scelta: ";cin >> scelta;
 
 	return scelta;
@@ -154,4 +166,14 @@ persona *eliminaInCoda(persona *l)
 	}
 		
 	return lista;
+}
+
+persona *cercaPersona(persona *l, string n)
+{
+	while(l){
+		if(l->nome == n)
+			break;
+		l = l->next;	
+	}
+	return l;		
 }
