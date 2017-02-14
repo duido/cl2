@@ -20,6 +20,7 @@ struct persona{
 // dichiarazione funzioni
 void stampa(persona *l);
 persona *aggiungiInCoda(persona *lista);
+persona *eliminaInCoda(persona *l);
 persona *setPersona();
 int menu();
 persona *eliminaInTesta(persona *l);
@@ -44,6 +45,7 @@ int main()
 				lista = eliminaInTesta(lista);
 				break;
 			case 4:
+				lista = eliminaInCoda(lista);
 				break;
 			case 5:
 				stampa(lista);
@@ -57,6 +59,20 @@ int main()
 
 
 	return 0;
+}
+
+int menu()
+{
+	int scelta;
+	cout << "1. Aggiungi in testa\n";
+	cout << "2. Aggiungi in coda\n";
+	cout << "3. Elimina in testa\n";
+	cout << "4. Elimina in coda\n";
+	cout << "5. Visualizza\n";
+	cout << "6. Esci\n\n";
+	cout << "Scelta: ";cin >> scelta;
+
+	return scelta;
 }
 
 // visualizza gli elementi della coda
@@ -102,20 +118,6 @@ persona *aggiungiInCoda(persona *lista)
 	return lista;
 }
 
-int menu()
-{
-	int scelta;
-	cout << "1. Aggiungi in testa\n";
-	cout << "2. Aggiungi in coda\n";
-	cout << "3. Elimina in testa\n";
-	cout << "4. Elimina in coda\n";
-	cout << "5. Visualizza\n";
-	cout << "6. Esci\n\n";
-	cout << "Scelta: ";cin >> scelta;
-
-	return scelta;
-}
-
 persona *eliminaInTesta(persona *l)
 {
 	if(l){
@@ -131,4 +133,25 @@ persona *aggiungiInTesta(persona *l)
 	persona *p = setPersona();
 	p->next = l;
 	return p;		
+}
+
+persona *eliminaInCoda(persona *l)
+{
+	persona *prec;
+	persona *lista = l;
+	if(l){
+		// controllo se è l'unico elemento in tal caso lista diventa NULL
+		if(!l->next){
+			lista = NULL;
+			delete(l);			
+		} else		
+			while(l->next){
+				prec = l;
+				l = l->next;
+			}
+		delete(l);
+		prec->next = NULL;
+	}
+		
+	return lista;
 }
